@@ -32,7 +32,7 @@ def get_client(provider="ollama"):
 def get_models(provider="ollama"):
     MODELS = {
         "google": {
-            "cheap": "google/gemini-2.5-flash-lite",
+            "cheap": "gemini-2.5-flash-lite",
             "medium": "gemini-2.5-flash",
             "large": "gemini-2.5-pro"
         },
