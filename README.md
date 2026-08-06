@@ -1,112 +1,32 @@
-# LLM Engineering - Master AI and LLMs
+# Mastering Generative AI and LLMs: An 8-Week Hands-On Journey
 
-## Your 8 week journey to proficiency starts today
+This repository documents my hands-on journey through Ed Donner's Generative AI and LLM Engineering course. I'm Daniel and I'm working through the program week by week, using this space to capture what I build, what I learn, and how my understanding evolves across real-world AI projects.
 
-![Voyage](assets/core.jpg)
+Over the course of 8 weeks, this work explores practical LLM engineering through projects involving website-aware brochure generation, multimodal assistants, audio-to-notes pipelines, code optimization, RAG systems, fine-tuning, and autonomous agents. The goal of this repository is not just to store notebooks, but to showcase applied learning across the full lifecycle of modern AI products—from prompting and inference to training, evaluation, and deployment.
 
-_If you're looking at this in Cursor, please right click on the filename in the Explorer on the left, and select "Open preview", to view the formatted version._
+If you're curious about what it looks like to learn Generative AI by building, this repo is an open invitation to explore the experiments, summaries, and project work collected here. It reflects both the breadth of the course and my own progress as I develop stronger practical skills with tools and techniques such as Hugging Face, LangChain, Gradio, frontier APIs, open-source models, RAG, QLoRA, and agentic workflows.
 
-I'm so happy you're joining me on this path. We'll be building immensely satisfying projects in the coming weeks. Some will be easy, some will be challenging, many will ASTOUND you! The projects build on each other so you develop deeper and deeper expertise each week. One thing's for sure: you're going to have a lot of fun along the way.
+---
 
-Any questions, please ask me on Udemy or at ed@edwarddonner.com. More details at the top of the course resources [here](https://edwarddonner.com/2024/11/13/llm-engineering-resources/).
+## Week 2 Summary
+- **Full‑stack brochure generator** – Day 5 extends the earlier summarisation work into a multi‑step, multi‑LLM pipeline that produces a polished marketing brochure.  It showcases how to collate data from a website, score and filter links, and feed structured prompts to an LLM for a cohesive narrative—a ready‑to‑deploy pattern for product‑marketing teams.
+- **Unified conversation format** – Week 2 starts with a clear‑cut representation of how conversations are expressed as a list of message objects.  This structure is the backbone of any conversational AI assistant and is key for building context‑aware, stateful interactions.
+- **Expanded model support and pricing awareness** – The days that follow demonstrate how to use multiple frontier models (Anthropic, Gemini, DeepSeek, Groq, OpenRouter) all through a single Python client API.  Students learn how to toggle between paid and free endpoints, giving them fine‑grained control over cost and performance for production workloads.
+- **Conversational assistants as a ubiquitous use case** – Several notebooks (Day 3, Day 4, community contributions) illustrate building chatbots that answer questions, schedule meetings, or trigger external actions via APIs.  These assistants can be wired into customer‑facing portals, scheduling services, or internal tools, creating real business value by automating routine interactions.
+- **Action‑capable agents** – The Airline Assistant (Day 4 and many community variations) shows how an LLM can act as an API client, searching flights and booking tickets.  The pattern – receive a user intent, transform it into an HTTP request, and return a natural‑language confirmation – is directly applicable to e‑commerce, travel, and travel‑technology startups.
+- **Business‑centric UI frameworks** – The Gradio‑based notebooks provide instant front‑ends for LLM services.  They enable rapid prototyping of SaaS products, internal dashboards, or research prototypes with zero‑code user‑interfaces, fast‑tracking time‑to‑market.
+- **Multi‑model orchestration** – Community notebooks showcase routing queries Between local models, cloud models, and specialized assistants using function‑calling or tool‑calling paradigms, illustrating how to design cost‑efficient, compliance‑aware supply chains for AI services.
+- **Cross‑domain applications** – From forecasting flight bookings to drafting marketing copy, grading student assignments, to automating travel itineraries, Week 2 demonstrates the breadth of real‑world problems that can be solved with a well‑engineered LLM stack.
+- **Community‑contributed extensions** – Assistant‑agents, Selenium scraping, and Lovelace‑style prompts appear in the community notebooks.  They provide concrete examples of how to surface business value by automating research, contracting, and presentation‑generation workflows.
+**Bottom line:** Each notebook in Week 1 teaches a different way to harness generative AI for tangible business use cases: summarising company information, automating client deliverables, trading costs against model performance, and building end‑to‑end LLM‑powered pipelines.  These lessons lay the foundation for more advanced applications in the upcoming weeks.
+**Takeaway:** Week 2 equips students with the ability to design, develop, and deploy context‑rich conversational agents that can interact with third‑party APIs, negotiate between paid and free models, and provide direct business value in domains ranging from travel to enterprise knowledge bases.
 
-### Answers to the most common questions
 
-[My Cursor looks different to yours (new splash screen)](https://edwarddonner.com/avatar?q=54)  
-[Can I use Gemini or free models instead of OpenAI Yes!](https://edwarddonner.com/avatar?q=8)  
-[Where are the course resources](https://edwarddonner.com/2024/11/13/llm-engineering-resources/)   
-[How does this course fit in with your others?](https://edwarddonner.com/curriculum)  
-[Can I take this course with no programming background?](https://edwarddonner.com/avatar?q=2)  
-[What job can I get after taking this course?](https://edwarddonner.com/avatar?q=3)  
-
-### Before you begin
-
-I'm here to help you be most successful with your learning. If you hit any snafus, or if you have any ideas on how I can improve the course, please do reach out in the platform or by emailing me direct (ed@edwarddonner.com). It's always great to connect with people on LinkedIn to build up the community - you'll find me here:  
-https://www.linkedin.com/in/eddonner/   
-
-And I'm starting to build a YouTube channel with extra content - please [check it out here](https://youtube.com/@edward.donner).  
-And this is new to me, but I'm also trying out X/Twitter at [@edwarddonner](https://x.com/edwarddonner) - if you're on X, please show me how it's done 😂  
-
-Resources to accompany the course, including the slides and useful links, are here:  
-https://edwarddonner.com/2024/11/13/llm-engineering-resources/
-
-My digital twin that can answer common FAQ (and get me involved!) is here:  
-https://edwarddonner.com/avatar/
-
-## Instant Gratification instructions for Week 1, Day 1 - with Llama 3.2 **not** Llama 3.3
-
-### Important note: see my warning about Llama3.3 below - it's too large for home computers! Stick with llama3.2 - several students have missed this warning...
-
-We will start the course by installing Ollama so you can see results immediately!
-1. Download and install Ollama from https://ollama.com noting that on a PC you might need to have administrator permissions for the install to work properly
-2. On a PC, start a Command prompt / Powershell (Press Win + R, type `cmd`, and press Enter). On a Mac, start a Terminal (Applications > Utilities > Terminal).
-3. Run `ollama run llama3.2` or for smaller machines try `ollama run llama3.2:1b` - **please note** steer clear of Meta's latest model llama3.3 because at 70B parameters that's way too large for most home computers!  
-4. If this doesn't work: you may need to run `ollama serve` in another Powershell (Windows) or Terminal (Mac), and try step 3 again. On a PC, you may need to be running in an Admin instance of Powershell.  
-5. And if that doesn't work on your box, I've set up this on the cloud. This is on Google Colab, which will need you to have a Google account to sign in, but is free:  https://colab.research.google.com/drive/1-_f5XZPsChvfU1sJ0QqCePtIuc55LSdu?usp=sharing
-
-Any problems, please contact me!
-
-## Before the Setup instructions - a special note
-
-Early on in the course (on Day 2), I give a demo of a very cool, popular product called Claude Code. It's an AI coding tool, similar to Cursor that we use on the course. I'm only showing this as an example of Agentic AI in action; it's not a tool that's covered explicitly on this course, particularly as we're in Cursor. But if you want to use Claude Code yourself, the Quick Start guide from Anthropic is [here](https://docs.claude.com/en/docs/claude-code/quickstart).
-
-## OK - now on to Setup instructions
-
-After we do the Ollama quick project, and after I introduce myself and the course, we get to work with the full environment setup.  
-
-Hopefully I've done a decent job of making these guides bulletproof - but please contact me right away if you hit roadblocks:
-
-Setup instructions: [Setup Instructions All Platforms](setup/SETUP-new.md)
-
-### An important point on API costs (which are optional! No need to spend if you don't wish)
-
-During the course, I'll suggest you try out the leading models at the forefront of progress, known as the Frontier models. I'll also suggest you run open-source models using Google Colab. These services have some charges, but I'll keep cost minimal - like, a few cents at a time. And I'll provide alternatives if you'd prefer not to use them.
-
-Please do monitor your API usage to ensure you're comfortable with spend; I've included links below. There's no need to spend anything more than a couple of dollars for the entire course. Some AI providers such as OpenAI require a minimum credit like \$5 or local equivalent; we should only spend a fraction of it, and you'll have plenty of opportunity to put it to good use in your own projects. During Week 7 you have an option to spend a bit more if you're enjoying the process - I spend about \$10 myself and the results make me very happy indeed! But it's not necessary in the least; the important part is that you focus on learning.
-
-### Free alternative to Paid APIs
-
-See [Guide 9](guides/09_ai_apis_and_ollama.ipynb) in the guides directory for the detailed approach with exact code for Ollama, Gemini, OpenRouter and more!
-
-### How this Repo is organized
-
-There are folders for each of the "weeks", representing modules of the class, culminating in a powerful autonomous Agentic AI solution in Week 8 that draws on many of the prior weeks.    
-Follow the setup instructions above, then open the Week 1 folder and prepare for joy.
-
-### The most important part
-
-The mantra of the course is: the best way to learn is by **DOING**. I don't type all the code during the course; I execute it for you to see the results. You should work along with me or after each lecture, running each cell, inspecting the objects to get a detailed understanding of what's happening. Then tweak the code and make it your own. There are juicy challenges for you throughout the course. I'd love it if you wanted to submit a Pull Request for your code (see the Github guide in the guides folder) and I can make your solutions available to others so we share in your progress; as an added benefit, you'll be recognized in GitHub for your contribution to the repo. While the projects are enjoyable, they are first and foremost designed to be _educational_, teaching you business skills that can be put into practice in your work.
-
-## Starting in Week 3, we'll also be using Google Colab for running with GPUs
-
-You should be able to use the free tier or minimal spend to complete all the projects in the class. I personally signed up for Colab Pro+ and I'm loving it - but it's not required.
-
-Learn about Google Colab and set up a Google account (if you don't already have one) [here](https://colab.research.google.com/)
-
-The colab links are in the folders for Week 3 and Week 7 - if you open up the lab for each day, you'll find a direct link to the colab.
-
-### Monitoring API charges
-
-You can keep your API spend very low throughout this course; you can monitor spend at the dashboards: [here](https://platform.openai.com/usage) for OpenAI, [here](https://console.anthropic.com/settings/cost) for Anthropic.
-
-The charges for the exercsies in this course should always be quite low, but if you'd prefer to keep them minimal, then be sure to always choose the cheapest versions of models:
-1. For OpenAI: Always use model `gpt-4.1-nano` in the code
-2. For Anthropic: Always use model `claude-3-haiku-20240307` in the code instead of the other Claude models
-3. During week 7, look out for my instructions for using the cheaper dataset
-
-Please do message me or email me at ed@edwarddonner.com if this doesn't work or if I can help with anything. I can't wait to hear how you get on.
-
-<table style="margin: 0; text-align: left;">
-    <tr>
-        <td style="width: 150px; height: 150px; vertical-align: middle;">
-            <img src="assets/resources.jpg" width="150" height="150" style="display: block;" />
-        </td>
-        <td>
-            <h2 style="color:#f71;">Other resources</h2>
-            <span style="color:#f71;">I've put together this webpage with useful resources for the course. This includes links to all the slides.<br/>
-            <a href="https://edwarddonner.com/2024/11/13/llm-engineering-resources/">https://edwarddonner.com/2024/11/13/llm-engineering-resources/</a><br/>
-            Please keep this bookmarked, and I'll continue to add more useful links there over time.
-            </span>
-        </td>
-    </tr>
-</table>
+## Week 1 Summary
+- **Educational foundation for real‑world LLM applications** – Day 1 introduces the first autonomous agent that collects, filters, and summarizes website content.  The notebook demonstrates how a single LLM call can digest a full web page and produce concise, actionable insights, directly applicable to marketing research, content curation, or any domain where fast summarization is needed.
+- **API pros and cons: paid versus local** – Day 2 explains the OpenAI chat‑completion API and provides a side‑by‑side alternative using the free Ollama endpoint.  This gives students hands‑on experience with cost‑aware design: paid aerial‑model inference versus free, offline inference, and the operational trade‑offs involved.
+- **Tokenizer basics and “memory” illusion** – The tokenizer cell in Day 4 clarifies token counting mechanics and illustrates how state is emulated across calls.  These concepts are critical when planning for context‑window limits in production Chat‑GPT deployments.
+- **Full‑stack brochure generator** – Day 5 extends the earlier summarisation work into a multi‑step, multi‑LLM pipeline that produces a polished marketing brochure.  It showcases how to collate data from a website, score and filter links, and feed structured prompts to an LLM for a cohesive narrative—a ready‑to‑deploy pattern for product‑marketing teams.
+- **Community‑contributed extensions** – Assistant‑agents, Selenium scraping, and Lovelace‑style prompts appear in the community notebooks.  They provide concrete examples of how to surface business value by automating research, contracting, and presentation‑generation workflows.
+**Bottom line:** Each notebook in Week 1 teaches a different way to harness generative AI for tangible business use cases: summarising company information, automating client deliverables, trading costs against model performance, and building end‑to‑end LLM‑powered pipelines.  These lessons lay the foundation for more advanced applications in the upcoming weeks.
+2 hidden lines
