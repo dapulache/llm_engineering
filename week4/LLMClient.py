@@ -37,9 +37,30 @@ def get_models(provider="ollama"):
             "large": "gemini-2.5-pro"
         },
         "ollama": {
-            "cheap": "gpt-oss:20b",
+            # 🥇 Flagship — highest capability; use for the hardest reasoning,
+            # complex agents, difficult coding, research, and tasks where quality
+            # matters more than speed/cost.
+            "flagship": "nemotron-3-ultra",
+
+            # 🥈 XLarge — excellent high-end reasoning; use when you need strong
+            # intelligence but don't necessarily need the absolute best model.
+            "xlarge": "minimax-m3",
+
+            # 🥉 Large — strong general-purpose model; excellent balance of
+            # intelligence, reliability, and cost for demanding tasks.
+            "large": "gpt-oss:120b",
+
+            # Medium — good general-purpose model for everyday reasoning,
+            # coding, writing, and analysis without using a large model.
             "medium": "gemma4:31b",
-            "large": "qwen3.5:397b"
+
+            # Fast — optimized for efficiency/speed; use for simpler tasks,
+            # high-volume requests, classification, extraction, etc.
+            "fast": "nemotron-3-nano:30b",
+
+            # Cheap — lowest-cost option; use for simple tasks, quick answers,
+            # lightweight transformations, and high-volume workloads.
+            "cheap": "gpt-oss:20b",
         }
     }
 
