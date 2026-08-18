@@ -8,6 +8,37 @@ If you're curious about what it looks like to learn Generative AI by building, t
 
 ---
 
+## Week 5 Summary
+- **RAG as the default enterprise LLM pattern** – Day 1 frames Retrieval-Augmented Generation as the fastest, lowest-cost path to domain-accurate assistants, building an "Insurellm Expert" that answers employee questions over internal docs without fine-tuning.
+- **Vector databases and embedding strategies** – Day 2 introduces Chroma with `all-MiniLM-L6-v2` (384-dim, free, local), demonstrates recursive chunking (1000/200 overlap), and visualizes the vector space with t-SNE-teaching the full ingest-embed-index-query loop.
+- **LangChain-standard RAG pipeline** – Day 3 wires a `Retriever` + `ChatOpenAI` into a 15-line `answer_question` function, proving that production-grade Q&A requires minimal code when the retrieval layer is solid.
+- **Evaluation-first mindset** – Day 4 embeds a business-focused evaluation harness (MRR, nDCG, keyword coverage for retrieval; accuracy, completeness, relevance for answers) with a Gradio dashboard, making "does it work?" measurable before any user sees the system.
+- **Advanced RAG: LLM-driven preprocessing, reranking, query rewriting** – Day 5 goes pro: an LLM chunks documents with semantic overlap, rewrites each chunk with a headline+summary for denser retrieval, then at query time rewrites the user question and reranks top-k results with a second LLM call-yielding measurable lifts on the eval suite.
+- **Production-ready evaluation UI** – `evaluator.py` ships a polished Gradio dashboard that streams per-category MRR/accuracy bars and color-coded thresholds, giving stakeholders a live "health monitor" for the knowledge assistant.
+**Bottom line:** Week 5 delivers the complete RAG lifecycle-ingest, index, retrieve, generate, evaluate, iterate-using only open-source embeddings, a local vector store, and cheap frontier models.  The patterns generalize to legal discovery, medical records, engineering specs, and any domain where institutional knowledge lives in documents.
+**Takeaway:** Learners acquire a hardened, evaluated RAG template they can deploy Monday morning: chunk - embed - index - retrieve - rerank - answer - measure, with a dashboard that proves ROI to leadership.
+
+## Week 4 Summary
+- **Automated code porting for performance engineering** – Days 3 and 5 showcase prompting frontier models (GPT-5, Claude 4.5 Sonnet, Gemini 2.5 Pro, Grok 4) to translate Python into highly optimized C++ and Rust, then automatically compiling and benchmarking the output.
+- **Multi-model benchmarking as a decision framework** – The notebooks run identical algorithms across 9+ models (including open-weight models via Groq, Ollama, OpenRouter) and measure wall-clock speedups, turning subjective "which model is better?" into quantitative cost-per-inference and latency-per-task data.
+- **End-to-end compilation pipeline** – System-info detection, compiler flag tuning (`-Ofast -mcpu=native -flto=thin` for Clang; `-C opt-level=3 -C lto=fat` for Rust), and subprocess orchestration are scripted, delivering a push-button workflow from Python source to native binary.
+- **Gradio dashboard for interactive experimentation** – A live UI lets engineers paste Python, select a model, port, compile, and compare outputs side-by-side, accelerating the inner loop of performance engineering.
+- **Demonstrated 100x-1000x speedups** – In the course's benchmarks, the best generated Rust/C++ code ran ~33,000x faster than the reference Python (0.0003s vs. 33s), illustrating the ROI of LLM-assisted optimization for HPC, quant finance, simulation, and game-engine workloads.
+**Bottom line:** Week 4 reframes LLMs as compilers-for-optimization: instead of hand-writing SIMD or managing memory, engineers describe intent in Python and let frontier models emit hardware-tuned systems code, validated by automated benchmarks.
+**Takeaway:** Students leave with a repeatable, model-agnostic pipeline to accelerate numerical kernels, a framework for evaluating model coding ability on their own hardware, and a Gradio prototype they can extend into a team-internal "optimization copilot."
+
+
+## Week 3 Summary
+- **Accessible GPU compute via Google Colab** – Day 1 introduces Colab as a free or low-cost environment with T4 GPUs, removing hardware barriers for LLM experimentation and making frontier model inference accessible to every student.
+- **Hugging Face pipelines for rapid prototyping** – Day 2 demonstrates the high-level `pipeline` API for instant access to thousands of open-source models (translation, summarization, zero-shot classification, text generation), enabling fast proof-of-concepts without boilerplate.
+- **Tokenizer literacy for cost and context control** – Day 3 deep-dives into tokenization (BPE, WordPiece, SentencePiece), showing how token counts drive API costs and context-window limits-essential knowledge for production budgeting and prompt engineering.
+- **Model internals and weight loading** – Day 4 unpacks the `transformers` model classes, configuration, and `from_pretrained` workflow, giving engineers visibility into model architecture, memory footprint, and device placement for deployment planning.
+- **Audio-to-notes pipeline with speaker diarization** – Day 5 builds a meeting-minutes generator that transcribes audio (Whisper), identifies speakers, and summarizes with an LLM-directly applicable to corporate meeting automation, sales call analysis, and compliance logging.
+- **Token-level inference visualization** – The `visualizer.py` module streams log-probs from OpenAI models and renders a directed graph of predicted vs. alternative tokens, providing an intuitive debugging tool for understanding model confidence, hallucination risk, and decoding behavior.
+**Bottom line:** Week 3 bridges the gap between API-only usage and model-level engineering.  Students gain hands-on experience with open-source model ecosystems, token economics, audio multimodality, and inference introspection-core competencies for building cost-effective, observable LLM systems.
+**Takeaway:** By week's end, learners can spin up GPU workloads in Colab, select and run open models via Hugging Face, estimate token costs, process audio end-to-end, and visualize what the model "thinks" at each decoding step.
+
+
 ## Week 2 Summary
 - **Full‑stack brochure generator** – Day 5 extends the earlier summarisation work into a multi‑step, multi‑LLM pipeline that produces a polished marketing brochure.  It showcases how to collate data from a website, score and filter links, and feed structured prompts to an LLM for a cohesive narrative—a ready‑to‑deploy pattern for product‑marketing teams.
 - **Unified conversation format** – Week 2 starts with a clear‑cut representation of how conversations are expressed as a list of message objects.  This structure is the backbone of any conversational AI assistant and is key for building context‑aware, stateful interactions.
