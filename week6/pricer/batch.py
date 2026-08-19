@@ -7,7 +7,7 @@ import pickle
 from tqdm.notebook import tqdm
 
 load_dotenv(override=True)
-groq = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+groq = Groq(api_key=os.environ.get("OLLAMA_API_KEY"))
 
 MODEL = "openai/gpt-oss-20b"
 BATCHES_FOLDER = "batches"
