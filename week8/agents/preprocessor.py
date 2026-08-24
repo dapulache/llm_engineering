@@ -18,7 +18,7 @@ Details: 1 sentence on features"""
 class Preprocessor:
     def __init__(
         self,
-        model_name=DEFAULT_MODEL_NAME,
+        model_name="openai/gpt-oss:20b",
         reasoning_effort=DEFAULT_REASONING_EFFORT,
         base_url=None,
     ):
@@ -27,9 +27,6 @@ class Preprocessor:
         self.total_cost = 0
         self.model_name = model_name
         self.reasoning_effort = reasoning_effort
-        self.base_url = base_url
-        if "ollama" in model_name and not base_url:
-            self.base_url = "http://localhost:11434"
 
     def messages_for(self, text: str) -> list[dict]:
         return [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": text}]
@@ -37,12 +34,9 @@ class Preprocessor:
     def preprocess(self, text: str) -> str:
         messages = self.messages_for(text)
         response = completion(
+            model="openai/gpt-oss:20b",
+            api_base="https://ollama.com/v1",
+            api_key=os.getenv('OLLAMA_API_KEY'),
             messages=messages,
-            model=self.model_name,
-            reasoning_effort=self.reasoning_effort,
-            api_base=self.base_url,
         )
-        self.total_input_tokens += response.usage.prompt_tokens
-        self.total_output_tokens += response.usage.completion_tokens
-        self.total_cost += response._hidden_params["response_cost"]
         return response.choices[0].message.content
