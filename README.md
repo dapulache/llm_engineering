@@ -8,6 +8,36 @@ If you're curious about what it looks like to learn Generative AI by building, t
 
 ---
 
+## Week 8 Summary
+- **A production deal-hunting product, not a notebook demo** – The week ships an end-to-end "Price is Right" system: scan live bargain feeds, estimate true market value, pick the opportunity with the largest discount, and push an alert to a phone. That is the same loop used in procurement, marketplace ops, and competitive-price monitoring.
+- **Serverless GPU inference as a product API** – Day 1 deploys the Week 7 fine-tuned Llama pricer on Modal, wrapping it as a `SpecialistAgent`. Teams get GPU-backed scoring without owning machines; keep-warm vs. scale-to-zero makes latency vs. cloud spend an explicit business knob.
+- **Ensemble pricing beats any single model** – Day 2 combines the specialist (fine-tuned open model), a frontier LLM with RAG over ~400k–800k Amazon products, and a neural-network pricer. Weighted estimates reduce the cost of a wrong price—critical when a false "bargain" wastes buyer time or a missed one leaves money on the table.
+- **RAG at inference time instead of more training** – Similar listings retrieved from Chroma give the frontier model comparable-sales context, the same pattern as appraisal, insurance, and listing tools that need a number *now* without another training run.
+- **Always-on deal intake and human notification** – Day 3's `ScannerAgent` reads RSS, filters for clear prices and useful descriptions, and the `MessagingAgent` sends Pushover (or SMS) alerts. Monitoring turns into an exception channel: people only look when the spread is large enough to matter.
+- **Planner agents that run the P&L loop** – Days 4–5 introduce a planning agent (and an autonomous tool-calling variant) that sequences scan → estimate → notify, remembers already-seen URLs, and only fires above a discount threshold. A Gradio UI makes the pipeline demoable to stakeholders.
+- **Community extensions** – Student work reuses the same agent stack for rentals, groceries, and other verticals, showing the pattern is a reusable "find mispriced inventory" playbook, not a one-off Amazon scraper.
+**Bottom line:** Week 8 is the capstone: owned models, RAG, ensembles, and agents become a live commercial system that finds underpriced goods and notifies a human before the window closes.
+**Takeaway:** Learners leave with a deployable multi-agent product—serverless specialist inference, retrieval-backed pricing, deal scanning, and alerting—that maps directly to marketplace, procurement, and ops use cases.
+
+## Week 7 Summary
+- **Own the model instead of renting it forever** – The week fine-tunes an open-source Llama (Llama 3.2 3B) to predict price from description. For high-volume scoring, a specialist model you host is usually cheaper and more controllable than paying a frontier API on every item.
+- **QLoRA makes custom LLMs affordable** – Day 1 centers on 4-bit quantization plus LoRA adapters so a full fine-tune fits a single Colab T4. That is the difference between "we need a research cluster" and "we can specialize a model this sprint."
+- **Prompt-formatted training data as an asset** – Day 2 turns curated listings into instruction-style prompt/completion pairs and loads a base model. The same recipe applies to any structured prediction problem: salary bands, insurance quotes, SKU categorization, lead scoring.
+- **Train, checkpoint, resume** – Days 3–4 run PEFT training with the option to continue from checkpoints. That is how teams recover from GPU preemption and iterate without throwing away compute.
+- **Evaluation against the Week 6 baselines** – Day 5 measures the open model against traditional ML, neural nets, and frontier APIs. The business question is explicit: does a small, fine-tuned open model beat (or approach) GPT on *this* task at a fraction of inference cost and without sending catalog data to a third party?
+**Bottom line:** Week 7 is how enterprises get domain-specialist LLMs on commodity GPUs—QLoRA, PEFT, and eval—so pricing (or any numeric prediction) can run in-house at scale.
+**Takeaway:** Students finish able to fine-tune, evaluate, and ship an open-weight specialist, with a clear cost and privacy case versus calling a general-purpose API for every prediction.
+
+## Week 6 Summary
+- **Price from description as a commercial problem** – "The Price is Right" capstone starts here: estimate what an item should cost from text, using a large Amazon catalog scrape. That capability underpins dynamic pricing, deal finding, catalog QA, insurance, and any workflow that needs a fair-value number from unstructured copy.
+- **Data curation as the highest-leverage step** – Day 1 treats scrubbing and sampling as the science, not busywork. Course framing: dataset R&D often moves error more than later hyperparameter tuning—the same lesson as production ML, where bad listings and outliers dominate model quality.
+- **LLM rewriting as industrial preprocessing** – Day 2 standardizes messy product text with an LLM (lite run under ~$1; full ~800k items on the order of tens of dollars, or skip and load a prepared Hub dataset). The pattern generalizes to any vertical with noisy catalogs, CRM notes, or tickets, and echoes Week 5's semantic rewrite for retrieval.
+- **Baselines before "just use GPT"** – Day 3 builds evaluation plus traditional ML (Random Forest, XGBoost). A full-catalog Random Forest reached about **$56** average error after a long run—proof that classical methods still matter when features are clear, and that you need a number to beat before buying GPU time.
+- **Neural nets and frontier models as competing cost curves** – Day 4 walks from a from-scratch PyTorch network to zero-shot frontier inference. Leadership can compare "train a small net," "prompt GPT," and "fine-tune" on the same eval harness.
+- **Fine-tuning a frontier model as a private specialist** – Day 5 fine-tunes GPT-4.1-nano via OpenAI (course example: ~20k examples for a few dollars; official guidance is that even 50–100 examples can move the needle). That is the path to a private variant that knows *your* price distribution without training an open model yet.
+**Bottom line:** Week 6 builds the commercial spine of the capstone—curate, rewrite, measure, then escalate from classical ML to neural nets to a fine-tuned frontier pricer—so later weeks have a task with real dollar error, not a toy dataset.
+**Takeaway:** Learners get a full pricing-ML playbook: data quality first, LLM preprocessing when text is messy, honest baselines, and a cheap fine-tune when generic models are not accurate enough.
+
 ## Week 5 Summary
 - **RAG as the default enterprise LLM pattern** – Day 1 frames Retrieval-Augmented Generation as the fastest, lowest-cost path to domain-accurate assistants, building an "Insurellm Expert" that answers employee questions over internal docs without fine-tuning.
 - **Vector databases and embedding strategies** – Day 2 introduces Chroma with `all-MiniLM-L6-v2` (384-dim, free, local), demonstrates recursive chunking (1000/200 overlap), and visualizes the vector space with t-SNE-teaching the full ingest-embed-index-query loop.
