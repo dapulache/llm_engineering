@@ -4,14 +4,15 @@ from agents.deals import Deal, Opportunity
 from agents.scanner_agent import ScannerAgent
 from agents.ensemble_agent import EnsembleAgent
 from agents.messaging_agent import MessagingAgent
-from openai import OpenAI
+from LLMClient import get_client, get_models
 import json
 
 
 class AutonomousPlanningAgent(Agent):
     name = "Autonomous Planning Agent"
     color = Agent.GREEN
-    MODEL = "gpt-5.1"
+    MODELS = get_models("ollama")
+    MODEL = MODELS["large"]
 
     def __init__(self, collection):
         """
@@ -21,7 +22,7 @@ class AutonomousPlanningAgent(Agent):
         self.scanner = ScannerAgent()
         self.ensemble = EnsembleAgent(collection)
         self.messenger = MessagingAgent()
-        self.openai = OpenAI()
+        self.openai = get_client("ollama")["client"]
         self.memory = None
         self.opportunity = None
         self.log("Autonomous Planning Agent is ready")
