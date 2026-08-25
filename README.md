@@ -6,6 +6,8 @@ Over the course of 8 weeks, this work explores practical LLM engineering through
 
 If you're curious about what it looks like to learn Generative AI by building, this repo is an open invitation to explore the experiments, summaries, and project work collected here. It reflects both the breadth of the course and my own progress as I develop stronger practical skills with tools and techniques such as Hugging Face, LangChain, Gradio, frontier APIs, open-source models, RAG, QLoRA, and agentic workflows.
 
+![Voyage](cert/AI_Engineer.jpg)
+
 ---
 
 ## Week 8 Summary
