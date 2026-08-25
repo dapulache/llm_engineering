@@ -10,7 +10,7 @@ pushover_url = "https://api.pushover.net/1/messages.json"
 class MessagingAgent(Agent):
     name = "Messaging Agent"
     color = Agent.WHITE
-    MODEL = "claude-sonnet-4-5"
+    MODEL = "gpt-oss:20b"
 
     def __init__(self):
         """
@@ -55,7 +55,9 @@ class MessagingAgent(Agent):
         user_prompt += f"Item Description: {description}\nOffered Price: {deal_price}\nEstimated true value: {estimated_true_value}"
         user_prompt += "\n\nRespond only with the 2-3 sentence message which will be used to alert & excite the user about this deal"
         response = completion(
-            model=self.MODEL,
+            model="openai/gpt-oss:20b",
+            api_base="https://ollama.com/v1",
+            api_key=os.getenv('OLLAMA_API_KEY'),
             messages=[
                 {"role": "user", "content": user_prompt},
             ],
